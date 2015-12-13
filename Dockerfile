@@ -31,7 +31,10 @@ ADD conf/ /usr/spark/conf/spark-defaults.conf
 
 WORKDIR /usr/spark/bin/
 
-echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
+#resolve hosts from DNS first
+RUN sed 's/^\(hosts:[\ ]*\)\(files\)\ \(dns\)$/\1\3 \2/' -i /etc/nsswitch.conf
+
+#RUN echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
 
 #ADD entrypoint.sh /entrypoint.sh
 #RUN chmod a+x /entrypoint.sh
