@@ -2,7 +2,7 @@ FROM multicloud/jre-8-oracle
 MAINTAINER yaronr
 
 RUN apt-get update \
-  && apt-get install -y net-tools python \
+  && apt-get install -y net-tools python tcpdump \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
