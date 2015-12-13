@@ -27,11 +27,12 @@ RUN curl -sL --retry 3 "http://central.maven.org/maven2/org/apache/hadoop/hadoop
  && curl -sL --retry 3 "http://central.maven.org/maven2/com/google/collections/google-collections/1.0/google-collections-1.0.jar" -o $SPARK_HOME/lib/google-collections-1.0.jar \
  && curl -sL --retry 3 "http://central.maven.org/maven2/joda-time/joda-time/2.8.2/joda-time-2.8.2.jar" -o $SPARK_HOME/lib/joda-time-2.8.2.jar
 
-ADD conf/ /usr/spark/conf/spark-defaults.conf
+ADD conf/spark-defaults.conf /usr/spark/conf/spark-defaults.conf
 
 WORKDIR /usr/spark/bin/
 
 #resolve hosts from DNS first
+## Currently we need to tweak nsswitch.conf(5), mainly due to zettio/weave#68
 RUN sed 's/^\(hosts:[\ ]*\)\(files\)\ \(dns\)$/\1\3 \2/' -i /etc/nsswitch.conf
 
 #RUN echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
