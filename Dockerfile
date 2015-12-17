@@ -16,10 +16,8 @@ RUN curl -L --retry 3 \
   "http://apache.mirrors.lucidnetworks.net/spark/spark-$SPARK_VERSION/spark-$SPARK_PACKAGE.tgz" \
   | gunzip \
   | tar x -C /usr/ \
-  && ln -s $SPARK_HOME /usr/spark \
-  && rm /usr/spark-$SPARK_PACKAGE/lib/spark-examples* \
-  && rm -rf /usr/spark-$SPARK_PACKAGE/examples
-  
+  && ln -s $SPARK_HOME /usr/spark
+
 
 # HADOOP/S3
 RUN curl -sL --retry 3 "http://central.maven.org/maven2/org/apache/hadoop/hadoop-aws/2.6.0/hadoop-aws-2.6.0.jar" -o $SPARK_HOME/lib/hadoop-aws-2.6.0.jar \
